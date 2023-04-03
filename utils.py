@@ -46,7 +46,7 @@ def remove_punctuation(text):
     return text.translate(translator).lower()
 
 def return_df():
-    df = pd.read_csv('.\\netflix_titles.csv', index_col = [0])
+    df = pd.read_csv('netflix_titles.csv', index_col = [0])
 
     df['Description_punc_removed'] = df['Description'].apply(remove_punctuation)
 

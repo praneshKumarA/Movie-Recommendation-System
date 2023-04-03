@@ -1,0 +1,8 @@
+transformers
+sentence_transformers
+pinecone-client
+pandas
+torch
+streamlit
+gensim
+spacy

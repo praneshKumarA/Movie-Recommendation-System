@@ -36,7 +36,6 @@ def extract_named_entities(text_batch):
     extracted_batch = ner_pipeline(text_batch)
     entities = []
     for text in extracted_batch:
-        # print(text)
         ne = [entity["word"] for entity in text]
         entities.append(ne)
     return entities
@@ -46,17 +45,13 @@ def remove_punctuation(text):
     return text.translate(translator).lower()
 
 def return_df():
-    df = pd.read_csv('netflix_titles.csv', index_col = [0])
+    df = pd.read_csv('.\\netflix_titles.csv', index_col = [0])
 
     df['Description_punc_removed'] = df['Description'].apply(remove_punctuation)
 
     df['Title'] = df['Title'].apply(lambda x: x[x.index('.') + 2:-7] if (x[-1] == ')' and x[-6] == '(') and (x[1] == '.' or x[2] == '.' or x[3] == '.' or x[4] == '.') else x)
     
     return df
-
-# print(df['Title'][0])
-
-# print(df[df['Title'] == 'The Dark Knight'].reset_index(drop = True))
 
 stop_words = ['i',
  'me',

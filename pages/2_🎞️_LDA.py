@@ -16,8 +16,6 @@ def recommend_by_storyline(title, df):
     recommended = []
     top10_list = []
     
-    # title = title.lower()
-    # df['Title'] = df['Title'].str.lower()
     if df[df['title'].apply(lambda x: x.lower()) == title.lower()].reset_index(drop = True).empty:
         return None
     topic_num = df[df['title'].apply(lambda x: x.lower()) == title.lower()].Topic.values
@@ -38,24 +36,24 @@ def recommend_by_storyline(title, df):
     return recommended
 
 st.set_page_config(page_title = 'Content Based Recommendation using LDA', page_icon = '🎥')
-st.markdown('# Similar Movie Recommendation System')
-text_input = st.text_input(
-    "Enter a Movie / Series Name 👇",
-    label_visibility = 'visible',
-    placeholder = 'Movie / Series'
+st.markdown('# Movie Recommendation System')
+text_input_2 = st.text_input(
+    "Enter a Movie / Series Name 👇", 
+    label_visibility = 'visible', 
+    placeholder = 'Movie / Series', 
+    key = 'lda'
 )
-if text_input:
-    if recommend_by_storyline(text_input, df) is None:
+if text_input_2:
+    with st.spinner('Loading...'):
+        result = recommend_by_storyline(text_input_2, df)
+    if result is None:
         st.warning('Please enter a valid movie / series name', icon = '⚠️')
-    elif len(recommend_by_storyline(text_input, df)) == 0:
+    elif len(result) == 0:
         st.warning('No similar movie / series is found', icon = '❌')
     else:
-        for i in recommend_by_storyline(text_input, df):
+        for i in result:
             with st.expander(i[0]):
                 st.write(i[1])
-        #     s += "- " + i[0] + "\n"
-        # with st.expander(st.markdown(s)):
-        #     st.write(i[1])
 else:
     st.warning('Please enter a movie / series name', icon = '⚠️')
 

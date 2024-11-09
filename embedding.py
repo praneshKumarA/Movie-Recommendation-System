@@ -1,4 +1,5 @@
 import pinecone
+from pinecone.grpc import PineconeGRPC as Pinecone
 from tqdm.auto import tqdm
 
 import utils
